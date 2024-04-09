@@ -1,27 +1,28 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
+import { useEffect, useState } from "react";
+import "./App.css";
+import InterviewCards from "./Components/InterviewCrads";
+import ParentCompoent from "./UnUsedComponents/ChildrenToParent";
 
 function App() {
-  
+  //States
+  const [interviewNotes, setInterviewNotes] = useState([]);
+  //mounting
+  useEffect(() => {
+    fetch("https://6614abd32fc47b4cf27cb460.mockapi.io/inter", {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((data) => setInterviewNotes(data))
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
     <>
-      <Greet/>
+      <InterviewCards data={interviewNotes} />
     </>
-  )
-
+  );
 }
 
-function Greet(){
-  return (
-    <div>
-      <h1>
-        Hello world 
-      </h1>
-    </div>
-  )
-}
-
-export default App
+export default App;
